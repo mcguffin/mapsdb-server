@@ -44,8 +44,16 @@
                         </g>
                     </svg>
                 </div>
+                {{-- Login with GitHub --}}
+                <div class="flex items-center justify-end mt-4">
+                    <a class="btn" href="{{ url('auth/github') }}"
+                        style="background: #313131; color: #ffffff; padding: 10px; width: 100%; text-align: center; display: block; border-radius:3px;">
+                        Login with GitHub
+                    </a>
+                </div>
 
                 <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
+
                     <div class="grid grid-cols-1 md:grid-cols-2">
                         <div class="p-6">
                             <div class="flex items-center">

@@ -31,12 +31,14 @@ class GitHubController extends Controller
                 return redirect('/dashboard');
 
             }else{
+
                 $gitUser = User::create([
                     'name' => $user->name,
                     'email' => $user->email,
                     'github_id'=> $user->id,
+                    'github_login'=> $user->nickname,
                     'auth_type'=> 'github',
-                    'password' => encrypt('gitpwd059')
+                    'password' => encrypt( base64_encode( random_bytes(12) ) ),
                 ]);
 
                 Auth::login($gitUser);

@@ -15,6 +15,7 @@ use App\Http\Controllers\GitHubController;
 */
 
 Route::get('/', function () {
+    // TODO
     return view('welcome');
 });
 

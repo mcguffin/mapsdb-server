@@ -15,8 +15,7 @@ return new class extends Migration
     {
         //
         Schema::table('users', function ($table) {
-            $table->string('github_id')->nullable();
-            $table->string('auth_type')->nullable();
+            $table->string('github_login')->nullable();
         });
     }
 
@@ -29,8 +28,7 @@ return new class extends Migration
     {
         //
         Schema::table('users', function ($table) {
-            $table->dropColumn('github_id');
-            $table->dropColumn('auth_type');
+            $table->dropColumn('github_login');
         });
     }
 };
