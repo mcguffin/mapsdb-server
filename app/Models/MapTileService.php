@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PMPMapServiceParam extends Model
+class MapTileService extends Model
 {
     use HasFactory;
 
-    use HasFactory;
+    protected $table = 'map_tile_services';
 
-    protected $table = 'map_service_params';
+    public $timestamps = true;
 
 }

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PMPMapServiceProvider extends Model
+class MapServiceProvider extends Model
 {
     use HasFactory;
 
