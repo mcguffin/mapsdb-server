@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\GitHubController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,3 +27,6 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+Route::get('auth/github', [GitHubController::class, 'gitRedirect']);
+Route::get('auth/github/callback', [GitHubController::class, 'gitCallback']);
