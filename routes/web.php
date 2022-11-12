@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GitHubController;
+use App\Http\Controllers\ProvidersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,3 +32,11 @@ Route::middleware([
 
 Route::get('auth/github', [GitHubController::class, 'gitRedirect']);
 Route::get('auth/github/callback', [GitHubController::class, 'gitCallback']);
+
+Route::get('providers', [ ProvidersController::class, 'index' ] )->name('providers'); // list providers
+Route::get('providers/{provider:id}', [ ProvidersController::class, 'show' ] )->name('providers.show'); // show provider
+Route::get('providers/suggest', [ ProvidersController::class, 'suggest' ] )->name('providers.suggest'); // show suggest provider form
+Route::post('providers/suggest', [ ProvidersController::class, 'processSuggest' ] )->name('providers.suggest'); // process suggest provider form data
+
+Route::get('providers/{id}/suggest-tile-service', [ ProvidersController::class, 'suggestTileService' ] )->name('providers.tile-service.suggest'); // show provider
+Route::post('providers/{id}/suggest-tile-service', [ ProvidersController::class, 'processSuggestTileService' ] )->name('providers.tile-service.suggest'); // show provider
