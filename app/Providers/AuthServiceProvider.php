@@ -25,13 +25,13 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        'App\Models\MapServiceProvider' => 'App\Policies\ProviderPolicy',
-        'App\Models\MapTileService' => 'App\Policies\ProviderPolicy',
-        'App\Models\MapTileServiceParam' => 'App\Policies\ProviderPolicy',
+        'App\Models\MapServiceProvider' => 'App\Policies\UserRolePolicy',
+        'App\Models\MapTileService' => 'App\Policies\UserRolePolicy',
+        'App\Models\MapTileServiceParam' => 'App\Policies\UserRolePolicy',
 
-        'App\Models\MapServiceProviderSuggestion' => 'App\Policies\SuggestionPolicy',
-        'App\Models\MapTileServiceSuggestion' => 'App\Policies\SuggestionPolicy',
-        'App\Models\MapTileServiceParamSuggestion' => 'App\Policies\SuggestionPolicy',
+        'App\Models\MapServiceProviderSuggestion' => 'App\Policies\UserRolePolicy',
+        'App\Models\MapTileServiceSuggestion' => 'App\Policies\UserRolePolicy',
+        'App\Models\MapTileServiceParamSuggestion' => 'App\Policies\UserRolePolicy',
     ];
 
     /**
@@ -42,6 +42,7 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+
     }
 
 }
