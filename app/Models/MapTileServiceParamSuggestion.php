@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Enums\ProviderStatus;
+use App\Enums\SuggestionStatus;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MapTileServiceParam extends Model
+class MapTileServiceParamSuggestion extends Model
 {
     use HasFactory;
 
@@ -23,7 +26,7 @@ class MapTileServiceParam extends Model
         static, //
     */
 
-    protected $table = 'map_tile_service_params';
+    protected $table = 'map_tile_service_param_suggestions';
 
     /**
      * The model's default values for attributes.
@@ -37,6 +40,20 @@ class MapTileServiceParam extends Model
         'param_type',
         'param_value',
         'param_description',
+
+        'suggestion_comment',
+        'suggestion_status',
+        'owner',
     ];
+
+    /**
+     * The model's default values for attributes.
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'suggestion_status' => SuggestionStatus::Draft->value,
+    ];
+
 
 }

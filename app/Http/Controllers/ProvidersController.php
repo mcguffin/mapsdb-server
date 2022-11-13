@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 use App\Models\MapServiceProvider;
 use App\Models\MapTileService;
 use App\Models\MapTileServiceParams;
+
+use App\Models\MapServiceProviderSuggestion;
 
 class ProvidersController extends Controller
 {
@@ -16,65 +20,26 @@ class ProvidersController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index() {
-        return view('provider.index', [
-            'list' => MapServiceProvider::all()
-        ]);
+    public function index( Request $request ) {
 
+        return view('provider.index', [
+            'providers' => MapServiceProvider::all(),
+            'suggestions' => ! is_null($request->user()) && $request->user()->can('create',MapServiceProviderSuggestion::class)
+                ? MapServiceProviderSuggestion::where( 'owner', Auth::user()->id )->get()
+                : [],
+        ]);
     }
 
     /**
      * Show provider
      *
-     * @param  int  $id
+     * @param  MapServiceProvider $provider
      * @return \Illuminate\View\View
      */
-    public function show( MapServiceProvider $provider ) {
+    public function show( Request $request, MapServiceProvider $provider ) {
         return view('provider.show', [
             'provider' => $provider
         ]);
     }
 
-    /**
-     * Show provider suggest form
-     *
-     * @param  int  $id
-     * @return \Illuminate\View\View
-     */
-    public function suggest() {
-        return view('provider.suggest', [
-        ]);
-    }
-
-    /**
-     * Show provider suggest form
-     *
-     * @param  int  $id
-     * @return \Illuminate\View\View
-     */
-    public function processSuggest() {
-        return redirect("/providers/{$id}");
-    }
-
-    /**
-     * Show the profile for a given user.
-     *
-     * @param  int  $id
-     * @return \Illuminate\View\View
-     */
-    public function suggestTileService( $id ) {
-        return view('provider.suggest.tile-service', [
-            'provider' => MapServiceProvider::findOrFail($id)
-        ]);
-    }
-
-    /**
-     * Show the profile for a given user.
-     *
-     * @param  int  $id
-     * @return \Illuminate\View\View
-     */
-    public function processSuggestTileService( $id ) {
-        return redirect("/providers/{$id}");
-    }
 }

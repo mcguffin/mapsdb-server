@@ -13,17 +13,22 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('map_tile_services', function (Blueprint $table) {
-
+        Schema::create('map_tile_service_suggestions', function (Blueprint $table) {
             $table->id();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->nullable()->useCurrentOnUpdate();
 
-            $table->foreignIdFor( 'App\Models\MapServiceProvider', 'provider_id' )->references('id')->on('map_service_providers')->cascadeOnDelete();
+            // from map_service_providers
+            // the actual provider
+            $table->foreignIdFor( 'App\Models\MapServiceProvider', 'provider_id' )->references('id')->on('map_service_providers');
+
+            // or a provider suggestion
+            $table->foreignIdFor( 'App\Models\MapServiceProviderSuggestion', 'provider_suggestion_id' )->references('id')->on('map_service_provider_suggestions')->cascadeOnDelete();
+
             // same for all services
             $table->string( 'service_name', 255 );
             $table->string( 'service_slug', 255 );
-
+            $table->text('provider_description')->nullable();
             $table->string( 'service_tile_format', 32 )->nullable(); // mapbox|leaflet|...
             $table->string( 'service_status', 16 )->default( 'suggestion' ); // down|dead|live
             $table->string( 'service_api_schema', 16 )->nullable(); // http|https|...
@@ -41,7 +46,11 @@ return new class extends Migration
 
             $table->text( 'attribution' )->nullable(); // 65.535 chars
 
-            $table->unique( [ 'provider_id', 'service_slug' ], 'provider_service' );
+            // suggested by
+            // we want suggestions to be deleted with user data
+            $table->foreignIdFor( 'App\Models\User', 'owner' )->references('id')->on('users')->cascadeOnDelete();
+            $table->text( 'suggestion_comment' ); // 64KiB
+            $table->string( 'suggestion_status', 32 )->index('suggestion_status'); // reserved: s,r,x,y,z
 
         });
     }
@@ -53,6 +62,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('map_tile_services');
+        Schema::dropIfExists('map_tile_service_suggestions');
     }
 };

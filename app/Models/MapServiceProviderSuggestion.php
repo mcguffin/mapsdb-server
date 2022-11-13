@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Enums\ProviderStatus;
+use App\Enums\SuggestionStatus;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MapServiceProvider extends Model
+class MapServiceProviderSuggestion extends Model
 {
     use HasFactory;
 
@@ -22,9 +25,21 @@ class MapServiceProvider extends Model
         'license_text',
         'license_type',
         'attribution',
+        'suggestion_comment',
+        'suggestion_status',
+        'owner',
     ];
 
-    protected $table = 'map_service_providers';
+    /**
+     * The model's default values for attributes.
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'suggestion_status' => SuggestionStatus::Draft,
+    ];
+
+    protected $table = 'map_service_provider_suggestions';
 
     public $timestamps = true;
 
@@ -33,7 +48,7 @@ class MapServiceProvider extends Model
      */
     public function tileServices()
     {
-        return $this->hasMany(MapTileService::class);
+        return $this->hasMany(MapTileServiceSuggestion::class);
     }
 
 }

@@ -29,6 +29,7 @@ class User extends Authenticatable
         'password',
         'github_id',
         'auth_type',
+        'github_login',
     ];
 
     /**
@@ -41,6 +42,15 @@ class User extends Authenticatable
         'remember_token',
         'two_factor_recovery_codes',
         'two_factor_secret',
+    ];
+
+    /**
+     * The model's default values for attributes.
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'name' => '(Nameless)',
     ];
 
     /**
@@ -60,4 +70,6 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    // has many roles
 }

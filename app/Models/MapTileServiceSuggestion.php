@@ -2,14 +2,17 @@
 
 namespace App\Models;
 
+use App\Enums\ProviderStatus;
+use App\Enums\SuggestionStatus;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MapTileService extends Model
+class MapTileServiceSuggestion extends Model
 {
     use HasFactory;
 
-    protected $table = 'map_tile_services';
+    protected $table = 'map_tile_service_suggestions';
 
     public $timestamps = true;
 
@@ -21,6 +24,7 @@ class MapTileService extends Model
     protected $fillable = [
 
         'provider_id',
+        'provider_suggestion_id',
         'service_name',
         'service_slug',
         'provider_description',
@@ -38,6 +42,18 @@ class MapTileService extends Model
         'is_inverse_z',
         'attribution',
 
+        'suggestion_comment',
+        'suggestion_status',
+        'owner',
+    ];
+
+    /**
+     * The model's default values for attributes.
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'suggestion_status' => SuggestionStatus::Draft->value,
     ];
 
 }

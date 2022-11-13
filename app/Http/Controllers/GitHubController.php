@@ -33,7 +33,7 @@ class GitHubController extends Controller
             }else{
 
                 $gitUser = User::create([
-                    'name' => $user->name,
+                    'name' => $user->name?:$user->nickname,
                     'email' => $user->email,
                     'github_id'=> $user->id,
                     'github_login'=> $user->nickname,
